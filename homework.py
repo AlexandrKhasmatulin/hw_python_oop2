@@ -92,7 +92,7 @@ class SportsWalking(Training):
         result2 = (self.duration * self.H_M)
         result3 = ((self.get_mean_speed() * self.KM_M)**2)/result1
         result4 = self.CKKAL1 * self.weight
-        return ((result4 + result3 * self.CKKAL2 * self.weight)*result2)
+        return ((result4 + result3 * self.CKKAL2 * self.weight) * result2)
 
 
 class Swimming(Training):
