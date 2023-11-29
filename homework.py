@@ -28,7 +28,7 @@ class Training:
 
     LEN_STEP = 0.65
     M_IN_KM = 1000
-    HOUR = 60
+    MIN_IN_HOUR = 60
 
     def __init__(self,
                  action: int,
@@ -67,7 +67,7 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         rslt1 = (self.CKKAL1 * self.get_mean_speed() + self.CKKAL2)
-        return rslt1 * self.weight / self.M_IN_KM * self.duration * self.HOUR
+        return rslt1 * self.weight / self.M_IN_KM * self.duration * self.MIN_IN_HOUR
 
 
 class SportsWalking(Training):
@@ -76,7 +76,7 @@ class SportsWalking(Training):
     CKKAL2 = 0.029
     KM_M = 0.278
     CM_M = 100
-    H_M = 60
+
 
     def __init__(self,
                  action: int,
@@ -89,7 +89,7 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         result1 = ((self.height) / self.CM_M)
-        result2 = (self.duration * self.H_M)
+        result2 = (self.duration * self.MIN_IN_HOUR)
         result3 = ((self.get_mean_speed() * self.KM_M)**2) / result1
         result4 = self.CKKAL1 * self.weight
         return ((result4 + result3 * self.CKKAL2 * self.weight) * result2)
@@ -129,7 +129,7 @@ SPORTS_TYPE: Dict[str, Type[Training]] = {'RUN': Running,
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type not in SPORTS_TYPE:
-        raise NotImplementedError('Incorrect key')
+        raise NotImplementedError('скрипт трекера еще не умеет работать с этим типом тренировки')
     return SPORTS_TYPE[workout_type](*data)
 
 
